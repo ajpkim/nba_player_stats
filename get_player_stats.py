@@ -72,7 +72,7 @@ def get_player_stats(first_name, last_name, stats='avg', playoffs=False, n=1):
 def pprint_df(df, first_name, last_name, stats, playoffs, **kwargs):
     """Pretty print tables to terminal using Rich library."""
     title = f'{first_name.capitalize()} {last_name.capitalize()} {"Regular Season" if not playoffs else "Playoffs"} {stats}'
-    table = Table(title=title, show_lines=True)
+    table = Table(title=title)
     rows = df.values.tolist()
     rows = [[str(e) for e in row] for row in rows]
     columns = df.columns.tolist()
@@ -80,8 +80,13 @@ def pprint_df(df, first_name, last_name, stats, playoffs, **kwargs):
     for column in columns:
         table.add_column(column)
 
-    for row in rows:
-        table.add_row(*row, style='bright_cyan')
+    for i, row in enumerate(rows):
+        if row[0] == 'Career':
+            table.add_row(*row, style='steel_blue1')
+        elif i % 2 == 0:
+            table.add_row(*row, style='bright_cyan')
+        else:
+            table.add_row(*row, style='light_cyan1')
 
     console = Console()
     console.print(table)
