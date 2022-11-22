@@ -37,13 +37,18 @@ def remove_rows(df):
     df.drop(df.index[df['Season'].isna()], inplace=True)  # There is a row all NaNs after career
 
 def remove_stats(df):
-    """Remove stats I don't care about, mostly to better fit data in terminal printing"""
+    """Remove stats I don't care about, mostly to better fit data in
+    terminal printing.  I.e. we remove the "makes" (2P, 3P, FT) for
+    shooting since we can easily infer from the attempts numbers and
+    the percentages.
+    """
     drop_cols = [
-        'Lg',
-         'FG',
-        '3PA',
-        'FT',
+        '2P',
+        '3P',
         'DRB',
+        'FG',
+        'FT',
+        'Lg',
     ]
     for col in drop_cols:
         if col in df.columns:
