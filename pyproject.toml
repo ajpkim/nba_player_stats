@@ -1,21 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel"]
 
-[project]
-name = "nba_player_stats_ajpkim"
-version = "0.0.1"
-authors = [
-  { name="Alex Kim", email="dev@ajpkim.com" },
-]
-description = "A package to view NBA player stats in the terminal"
-readme = "README.md"
-requires-python = ">=3.10"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
-
-[project.urls]
-"Homepage" = "https://github.com/ajpkim/stats"
+# "In the pyproject.toml specification, project.scripts is the equivalent to console_scripts in setup.py and setup.cfg. However, at present this functionality is not implemented yet by the setuptools build system."
