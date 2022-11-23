@@ -96,6 +96,10 @@ def pprint_df(df, first_name, last_name, stats, playoffs, **kwargs):
     console = Console()
     console.print(table)
 
+def main(first_name, last_name, stats='avg', playoffs=False, n=1):
+    df = get_player_stats(first_name, last_name, stats, playoffs, n)
+    pprint_df(df, first_name, last_name, stats, playoffs)
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
@@ -106,5 +110,4 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--n', type=int, default=1)
 
     args = vars(parser.parse_args())
-    df = get_player_stats(**args)
-    pprint_df(df, **args)
+    main(**args)
