@@ -1,7 +1,8 @@
-"""This script has functions for getting NBA player stat tables from
-basketball reference and displaying it in the terminal.
-
 """
+This script has functions for getting NBA player stat tables from
+basketball reference and displaying it in the terminal.
+"""
+import argparse
 import sys
 import requests
 
@@ -50,6 +51,7 @@ def remove_stats(df):
         'FT',
         'Lg',
     ]
+    drop_cols += [col for col in df.columns if 'Unnamed:' in col]
     for col in drop_cols:
         if col in df.columns:
             df.drop(columns=col, axis=1, inplace=True)
@@ -96,18 +98,22 @@ def pprint_df(df, first_name, last_name, stats, playoffs, **kwargs):
     console = Console()
     console.print(table)
 
-def main(first_name, last_name, stats='avg', playoffs=False, n=1):
-    df = get_player_stats(first_name, last_name, stats, playoffs, n)
-    pprint_df(df, first_name, last_name, stats, playoffs)
 
-if __name__ == '__main__':
-    import argparse
+def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('first_name', type=str)
     parser.add_argument('last_name', type=str)
     parser.add_argument('-s', '--stats', type=str, default='avg', choices=['avg', 'tot', 'adv'])
     parser.add_argument('-p', '--playoffs', type=bool, default=False)
     parser.add_argument('-n', '--n', type=int, default=1)
+    return vars(parser.parse_args())
 
+def main():
+    args = get_args()
+    df = get_player_stats(**args)
+    pprint_df(df, **args)
+
+if __name__ == '__main__':
+    args = get_args()
     args = vars(parser.parse_args())
     main(**args)
