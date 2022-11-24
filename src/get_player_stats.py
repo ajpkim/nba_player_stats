@@ -98,14 +98,13 @@ def pprint_df(df, first_name, last_name, stats, playoffs, **kwargs):
     console = Console()
     console.print(table)
 
-
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('first_name', type=str)
-    parser.add_argument('last_name', type=str)
-    parser.add_argument('-s', '--stats', type=str, default='avg', choices=['avg', 'tot', 'adv'])
-    parser.add_argument('-p', '--playoffs', type=bool, default=False)
-    parser.add_argument('-n', '--n', type=int, default=1)
+    parser.add_argument('first_name', type=str, help="Player first name")
+    parser.add_argument('last_name', type=str, help="Player last name")
+    parser.add_argument('-s', '--stats', type=str, default='avg', choices=['avg', 'tot', 'adv'], help="Type of stats table", metavar='')
+    parser.add_argument('-p', '--playoffs', action='store_true', help="Playoffs or regular season")
+    parser.add_argument('-n', '--n', type=int, default=1, help="Increment this if the wrong player with the same name is returned", metavar='')
     return vars(parser.parse_args())
 
 def main():
@@ -114,6 +113,4 @@ def main():
     pprint_df(df, **args)
 
 if __name__ == '__main__':
-    args = get_args()
-    args = vars(parser.parse_args())
-    main(**args)
+    main()
