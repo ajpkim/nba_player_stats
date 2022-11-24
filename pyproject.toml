@@ -1,5 +1,3 @@
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools", "wheel"]
-
-# "In the pyproject.toml specification, project.scripts is the equivalent to console_scripts in setup.py and setup.cfg. However, at present this functionality is not implemented yet by the setuptools build system."
